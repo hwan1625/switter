@@ -1,6 +1,7 @@
 import {initializeApp} from "firebase/app";
 import {getAuth} from "firebase/auth"; //인증모듈 불러오기
 import {getFirestore} from "firebase/firestore"; //데이터베이스 블러오기
+import {getStorage} from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -16,3 +17,4 @@ const app = initializeApp(firebaseConfig);
 export const firebaseInstance = getAuth();
 export const authService = getAuth();
 export const dbService = getFirestore();
+export const storageService = getStorage();
