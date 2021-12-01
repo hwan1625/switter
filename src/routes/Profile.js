@@ -1,4 +1,4 @@
-import {authService, dbService} from 'fbase';
+import {authService} from 'fbase';
 import {updateProfile} from 'firebase/auth';
 import { useHistory } from 'react-router-dom';
 import {useState} from 'react';
@@ -27,13 +27,15 @@ const Profile = ({refreshUser, userObj}) => {
     
 
     return (
-        <>
-            <form onSubmit={onSubmit}>
-                <input onChange={onChange} type="text" placeholder="Display name" value={newDisplayName} />
-                <input type="submit" value="Update profile" />
+        <div className="container">
+            <form onSubmit={onSubmit} className="profileForm">
+                <input onChange={onChange} type="text" placeholder="Display name" value={newDisplayName} autoFocus className="formInput" />
+                <input type="submit" value="Update profile" className="formBtn" style={{marginTop: 10}} />
             </form>
-            <button onClick={onLogOutClick}>Log Out</button>
-        </>
+            <span onClick={onLogOutClick} className="formBtn cancelBtn logOut">
+                Log Out
+            </span>
+        </div>
     );
 };
 

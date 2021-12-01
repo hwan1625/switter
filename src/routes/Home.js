@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {onSnapshot, collection} from 'firebase/firestore';
+import {onSnapshot, collection, orderBy, query} from 'firebase/firestore';
 import {dbService} from 'fbase';
 import Swit from 'components/Swit';
 import SwitFactory from 'components/SwitFactory';
@@ -20,7 +20,8 @@ const Home = ({userObj}) => {
         // getSwits();
         
         // 실시간 데이터베이스
-        onSnapshot(collection(dbService, "swits"), (snapshot) => {
+        const q = query(collection(dbService, "swits"), orderBy("createdAt", "desc"));
+        onSnapshot(q, (snapshot) => {
             const newArray = snapshot.docs.map((document) => ({
                 id: document.id,
                 ...document.data(),
@@ -31,14 +32,14 @@ const Home = ({userObj}) => {
     
 
     return (
-        <>
+        <div className="container">
           <SwitFactory userObj={userObj} />  
-            <div>
+            <div style={{marginTop: 30}}>
                 {swits.map((swit) => (
                     <Swit key={swit.id} switObj={swit} isOwner={swit.creatorId === userObj.uid} />
                 ))}
             </div>
-        </>
+        </div>
     );
 }
 
